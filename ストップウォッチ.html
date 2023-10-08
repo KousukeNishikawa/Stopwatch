@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>ストップウォッチ</title>
+</head>
+<body>
+ <h1>ストップウォッチ</h1>
+ <h2>経過時間: <span id="timer">0</span> 秒</h2>
+ <button id="startButton">スタート</button>
+ <button id="stopButton" disabled>ストップ</button>
+ <button id="resetButton" disabled>リセット</button>
+
+ <script>
+   let timerInterval;
+   let elapsedTime = 0;
+   let isRunning = false;
+
+   const timerDisplay = document.getElementById("timer");
+   const startButton = document.getElementById("startButton");
+   const stopButton = document.getElementById("stopButton");
+   const resetButton = document.getElementById("resetButton");
+
+   startButton.addEventListener("click", startTimer);
+   stopButton.addEventListener("click", stopTimer);
+   resetButton.addEventListener("click", resetTimer);
+
+   function startTimer() {
+     if (!isRunning) {
+       isRunning = true;
+       startButton.disabled = true;
+       stopButton.disabled = false;
+       resetButton.disabled = false;
+
+       timerInterval = setInterval(updateTimer, 1000);
+     }
+   }
+
+   function stopTimer() {
+     if (isRunning) {
+       isRunning = false;
+       startButton.disabled = false;
+       stopButton.disabled = true;
+       clearInterval(timerInterval);
+
+     }
+   }
+
+   function resetTimer() {
+     isRunning = false;
+     startButton.disabled = false;
+     stopButton.disabled = true;
+     resetButton.disabled = true;
+     clearInterval(timerInterval);
+     elapsedTime = 0;
+     timerDisplay.textContent = elapsedTime;
+     
+   }
+
+   function updateTimer() {
+     elapsedTime++;
+     timerDisplay.textContent = elapsedTime;
+   }
+ </script>
+</body>
+</html>
